@@ -1,7 +1,8 @@
 %define name    cultivation
 %define Name    Cultivation
-%define version 9cvs20071217
-%define release %mkrel 1
+%define version 9
+%define snapshot 20071217
+%define release %mkrel 0.%{snapshot}.1
 
 Name:	    %{name}
 Version:    %{version}
@@ -10,7 +11,7 @@ Summary:    A game about the interactions within a gardening community
 License:    Public Domain
 Group:	    Games/Strategy
 URL:	    http://cultivation.sourceforge.net/
-Source0:    %Name-%version.tar.bz2
+Source0:    %Name-%{version}cvs%{snapshot}.tar.bz2
 BuildRequires:	mesaglut-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
 
@@ -33,10 +34,9 @@ Cultivation generates fresh visuals, music, and behaviors.
 
 
 %prep
-%setup -q -n %{Name}-%{version}
+%setup -q -n %{Name}-%{version}cvs%{snapshot}
 
 %build
-#%__sed -i -e "s|/usr/X11R6/lib|/usr/X11R6/%{_lib}|g" game2/Makefile.GnuLinux
 export CFLAGS="$RPM_OPT_FLAGS -fPIC -DPIC"
 pushd minorGems/sound/portaudio
 	chmod u+x ./configure

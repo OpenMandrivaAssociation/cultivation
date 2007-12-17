@@ -11,7 +11,7 @@ License:    Public Domain
 Group:	    Games/Strategy
 URL:	    http://cultivation.sourceforge.net/
 Source0:    %Name-%version.tar.bz2
-BuildRequires:	libmesaglut3-devel
+BuildRequires:	mesaglut-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description

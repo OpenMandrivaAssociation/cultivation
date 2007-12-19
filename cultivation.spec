@@ -2,7 +2,7 @@
 %define Name    Cultivation
 %define version 9
 %define snapshot 20071217
-%define release %mkrel 0.%{snapshot}.1
+%define release %mkrel 0.%{snapshot}.2
 
 Name:	    %{name}
 Version:    %{version}
@@ -62,32 +62,32 @@ popd
 %install
 install -d -m 755 %{buildroot}%{_gamesbindir}
 install -m 755 game2/gameSource/%{Name} \
-	%{buildroot}%{_gamesbindir}
+	%{buildroot}%{_gamesbindir}/%{name}.real
 
-install -d -m 755 %{buildroot}%{_gamesdatadir}/%{Name}
+install -d -m 755 %{buildroot}%{_gamesdatadir}/%{name}
 install -m 644 game2/gameSource/font.tga \
-	%{buildroot}%{_gamesdatadir}/%{Name}
+	%{buildroot}%{_gamesdatadir}/%{name}
 install -m 644 game2/gameSource/features.txt \
-	%{buildroot}%{_gamesdatadir}/%{Name}
+	%{buildroot}%{_gamesdatadir}/%{name}
 install -m 644 game2/gameSource/language.txt \
-	%{buildroot}%{_gamesdatadir}/%{Name}
-install -d -m 755 %{buildroot}%{_gamesdatadir}/%{Name}/languages
+	%{buildroot}%{_gamesdatadir}/%{name}
+install -d -m 755 %{buildroot}%{_gamesdatadir}/%{name}/languages
 install -m 644 game2/gameSource/languages/*.txt \
-	%{buildroot}%{_gamesdatadir}/%{Name}/languages
+	%{buildroot}%{_gamesdatadir}/%{name}/languages
 
 # startscript
-%__cat > %{Name}.sh <<'EOF'
+cat > %{buildroot}%{_gamesbindir}/%{name} <<'EOF'
 #!/bin/bash
-if [ ! -d $HOME/%{Name} ]; then
-	mkdir -p $HOME/%{Name}
-	cd $HOME/%{Name}
-	cp %{_gamesdatadir}/%{Name}/*.txt .
-	ln -s %{_gamesdatadir}/%{Name}/*.tga .
-	ln -s %{_gamesdatadir}/%{Name}/languages .
-	ln -s %{_gamesbindir}/%{Name} .
+if [ ! -d $HOME/.%{name} ]; then
+	mkdir -p $HOME/.%{name}
+	cd $HOME/.%{name}
+	cp %{_gamesdatadir}/%{name}/*.txt .
+	ln -s %{_gamesdatadir}/%{name}/*.tga .
+	ln -s %{_gamesdatadir}/%{name}/languages .
+	ln -s %{_gamesbindir}/%{name}.real .
 fi
 
-cd $HOME/%{name}
+cd $HOME/.{name}
 
 # Basic switch of language according to locale defined in Unix systems
 case "$LC_MESSAGES" in
@@ -103,24 +103,23 @@ case "$LC_MESSAGES" in
 esac
 echo $language > ./language.txt
 
-./%{name}
+./%{name}.real
 EOF
-install -m 755 %{Name}.sh \
-	%{buildroot}%{_gamesbindir}
+chmod 755 %{buildroot}%{_gamesbindir}/%{name}
 
 # icon
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
 install -m 644 game2/build/win32/iconSource.png \
-	%{buildroot}%{_datadir}/pixmaps/%{Name}.png
+	%{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{Name}.desktop << EOF
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Encoding=UTF-8
-Name=%{Name}
+Name=%{name}
 Comment=%summary
-Exec=%{Name}.sh
-Icon=%{Name}.png
+Exec=%{name}
+Icon=%{name}.png
 Terminal=false
 Type=Application
 StartupNotify=true
@@ -139,9 +138,9 @@ rm -rf %{buildroot}
 %files
 %defattr(-, root, games)
 %doc game2/documentation/*
-%{_gamesbindir}/%{Name}
-%{_gamesbindir}/%{Name}.sh
-%{_gamesdatadir}/%{Name}
+%{_gamesbindir}/%{name}
+%{_gamesbindir}/%{name}.real
+%{_gamesdatadir}/%{name}
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
 

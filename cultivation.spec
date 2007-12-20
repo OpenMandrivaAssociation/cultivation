@@ -87,7 +87,7 @@ if [ ! -d $HOME/.%{name} ]; then
 	ln -s %{_gamesbindir}/%{name}.real .
 fi
 
-cd $HOME/.{name}
+cd $HOME/.%{name}
 
 # Basic switch of language according to locale defined in Unix systems
 case "$LC_MESSAGES" in

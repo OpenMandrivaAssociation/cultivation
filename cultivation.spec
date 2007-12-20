@@ -2,7 +2,7 @@
 %define Name    Cultivation
 %define version 9
 %define snapshot 20071217
-%define release %mkrel 0.%{snapshot}.2
+%define release %mkrel 0.%{snapshot}.3
 
 Name:	    %{name}
 Version:    %{version}

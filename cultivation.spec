@@ -2,7 +2,7 @@
 %define Name    Cultivation
 %define version 9
 %define snapshot 20071217
-%define release %mkrel 0.%{snapshot}.3
+%define release %mkrel 0.%{snapshot}.4
 
 Name:	    %{name}
 Version:    %{version}
@@ -115,7 +115,6 @@ install -m 644 game2/build/win32/iconSource.png \
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=%{name}
 Comment=%summary
 Exec=%{name}
@@ -123,7 +122,7 @@ Icon=%{name}
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Game;SimulationGame;
+Categories=Game;Simulation;
 EOF
 
 %if %mdkversion < 200900

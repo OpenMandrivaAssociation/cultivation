@@ -10,7 +10,7 @@ Release:    %{release}
 Summary:    A game about the interactions within a gardening community
 License:    Public Domain
 Group:	    Games/Strategy
-URL:	    http://cultivation.sourceforge.net/
+URL:	    https://cultivation.sourceforge.net/
 Source0:    %Name-%{version}cvs%{snapshot}.tar.bz2
 BuildRequires:	mesaglut-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
